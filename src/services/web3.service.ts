@@ -17,12 +17,12 @@ import { FetchOfferModel, OfferModel } from '../models/offer.model';
 
 export class StrainzManager {
 
-    provider = config.prod ? new Web3.providers.WebsocketProvider(`wss://bsc.getblock.io/mainnet/?api_key=${config.getblockKey}`, {
+    provider: any = config.prod ? new Web3.providers.WebsocketProvider(`wss://bsc.getblock.io/mainnet/?api_key=${config.getblockKey}`, {
         reconnect: {
             auto: true
         }
     }) : new Web3.providers.HttpProvider('https://data-seed-prebsc-1-s1.binance.org:8545/');
-    eventProvider = config.prod ? new Web3.providers.WebsocketProvider(`wss://bsc.getblock.io/mainnet/?api_key=${config.getblockKey}`, {
+    eventProvider: any = config.prod ? new Web3.providers.WebsocketProvider(`wss://bsc.getblock.io/mainnet/?api_key=${config.getblockKey}`, {
         reconnect: {
             auto: true
         }
@@ -31,19 +31,19 @@ export class StrainzManager {
     web3 = new Web3(this.provider);
     eventWeb3 = config.prod ? new Web3(this.eventProvider) : null;
 
-    strainzNFT = new this.web3.eth.Contract(strainzNFTArtifacts.abi as any, contracts.strainzNFTAddress);
-    seedz = new this.web3.eth.Contract(seedzArtifacts.abi as any, contracts.seedzTokenAddress);
-    marketplace = new this.web3.eth.Contract(marketplaceArtifacts.abi as any, contracts.strainzMarketplaceAddress);
-    accessory = new this.web3.eth.Contract(strainzAccessoryArtifacts.abi as any, contracts.strainzAccessoryAddress);
+    strainzNFT: any = new this.web3.eth.Contract(strainzNFTArtifacts.abi as any, contracts.strainzNFTAddress);
+    seedz: any = new this.web3.eth.Contract(seedzArtifacts.abi as any, contracts.seedzTokenAddress);
+    marketplace: any = new this.web3.eth.Contract(marketplaceArtifacts.abi as any, contracts.strainzMarketplaceAddress);
+    accessory: any = new this.web3.eth.Contract(strainzAccessoryArtifacts.abi as any, contracts.strainzAccessoryAddress);
 
     // @ts-ignore
-    eventStrainzNFT = config.prod ? new this.eventWeb3.eth.Contract(strainzNFTArtifacts.abi as any, contracts.strainzNFTAddress) : null;
+    eventStrainzNFT: any = config.prod ? new this.eventWeb3.eth.Contract(strainzNFTArtifacts.abi as any, contracts.strainzNFTAddress) : null;
     // @ts-ignore
-    eventSeedz = config.prod ? new this.eventWeb3.eth.Contract(seedzArtifacts.abi as any, contracts.seedzTokenAddress) : null;
+    eventSeedz: any = config.prod ? new this.eventWeb3.eth.Contract(seedzArtifacts.abi as any, contracts.seedzTokenAddress) : null;
     // @ts-ignore
-    eventMarketplace = config.prod ? new this.eventWeb3.eth.Contract(marketplaceArtifacts.abi as any, contracts.strainzMarketplaceAddress) : null;
+    eventMarketplace: any = config.prod ? new this.eventWeb3.eth.Contract(marketplaceArtifacts.abi as any, contracts.strainzMarketplaceAddress) : null;
     // @ts-ignore
-    eventAccessory = config.prod ? new this.eventWeb3.eth.Contract(strainzAccessoryArtifacts.abi as any, contracts.strainzAccessoryAddress) : null;
+    eventAccessory: any = config.prod ? new this.eventWeb3.eth.Contract(strainzAccessoryArtifacts.abi as any, contracts.strainzAccessoryAddress) : null;
 
     public strainzSupply = 0;
     public seedzSupply = 0;
@@ -113,8 +113,6 @@ export class StrainzManager {
                     await removeStrainData(i);
 
                 }
-
-
 
 
             } catch (e) {
