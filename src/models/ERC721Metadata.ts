@@ -4,5 +4,7 @@ export interface ERC721Metadata {
     properties: {
         [key: string]: string;
     };
+    attributes: any[];
+    external_url: string;
     image: string;
 }

@@ -3,7 +3,7 @@ import { Color, StrainPart } from '../models/straindata.model';
 import { StrainzManager } from './web3.service';
 import { getOffersCollection, getPoolCollection, getStrainzCollection, getTradeCollection } from './mongodb.service';
 import { ERC721Metadata } from '../models/ERC721Metadata';
-import { AccessoryType } from '../models/accessory.model';
+import { accessoryName, AccessoryType } from '../models/accessory.model';
 import { mapDNA, setCharAt } from '../util';
 import express = require('express');
 import fs = require('fs');
@@ -313,6 +313,7 @@ strainRoutes.get('/strain/:id', async (req, res) => {
         name: `${metadata.prefix ? metadata.prefix : ''} ${metadata.postfix}`,
         image: `${config.imagegenUrl}/image/${imageDNA}`,
         description: 'https://strainz.tech',
+        external_url: `https://strainz.tech/strain/${id}`,
 
         properties: {
             generation: `${metadata.generation}`,
@@ -324,7 +325,40 @@ strainRoutes.get('/strain/:id', async (req, res) => {
             face: nameDict[parsedDNA.parts[3]],
             color: rgbToHex(parsedDNA.color),
             accessories: metadata.accessories.toString()
-        }
+        },
+        attributes: [
+            {
+                trait_type: 'Head',
+                value: nameDict[parsedDNA.parts[1]]
+            },
+            {
+                trait_type: 'Pot',
+                value: nameDict[parsedDNA.parts[0]]
+            },
+            {
+                trait_type: 'Body',
+                value: nameDict[parsedDNA.parts[2]]
+            },
+            {
+                trait_type: 'Face',
+                value: nameDict[parsedDNA.parts[3]]
+            },
+            {
+                trait_type: 'Generation',
+                value: metadata.generation,
+                display_type: 'number',
+            },
+            {
+                trait_type: 'Grow Rate',
+                value: metadata.growRate,
+            },
+            {
+                trait_type: 'Breeding Cost',
+                value: metadata.breedingCost,
+            }
+
+
+        ]
 
     };
 

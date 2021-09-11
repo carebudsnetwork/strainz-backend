@@ -35,4 +35,5 @@ export function getPoolCollection(): mongodb.Collection {
     return mongoClient.db("strainzv3").collection('pools');
 }
 
+
 export {mongoClient};
