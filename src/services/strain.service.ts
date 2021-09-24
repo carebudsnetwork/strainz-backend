@@ -315,17 +315,6 @@ strainRoutes.get('/strain/:id', async (req, res) => {
         description: 'https://strainz.tech',
         external_url: `https://strainz.tech/strain/${id}`,
 
-        properties: {
-            generation: `${metadata.generation}`,
-            growRate: `${metadata.growRate}`,
-            breedingCost: `${metadata.breedingCost}`,
-            pot: nameDict[parsedDNA.parts[0]],
-            head: nameDict[parsedDNA.parts[1]],
-            body: nameDict[parsedDNA.parts[2]],
-            face: nameDict[parsedDNA.parts[3]],
-            color: rgbToHex(parsedDNA.color),
-            accessories: metadata.accessories.toString()
-        },
         attributes: [
             {
                 trait_type: 'Head',
@@ -350,7 +339,7 @@ strainRoutes.get('/strain/:id', async (req, res) => {
             },
             {
                 trait_type: 'Grow Rate',
-                value: metadata.growRate,
+                value: (((metadata.growRate * 127.5) / 24) / 7),
             },
             {
                 trait_type: 'Breeding Cost',
